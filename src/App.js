@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AppProvider } from './hooks';
+import { Routes } from './routes';
+import { GlobalStyle } from './styles/global';
+import { Suspense } from 'react';
+import { Loading } from './components/Common/Loading';
+import { Header } from './components/App/Header'
+import { AppContainer } from './styles/layout';
 
-function App() {
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Suspense fallback={<Loading />}>
+        <AppProvider>
+          <Header />
+          <AppContainer>
+            <Routes />
+          </AppContainer>
+        </AppProvider>
+        <GlobalStyle />
+      </Suspense>
+    </Router>
   );
 }
-
-export default App;
